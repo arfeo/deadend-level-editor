@@ -1,3 +1,7 @@
+import { App } from './components/App';
+
+import { globals } from './constants/globals';
+
 window.onload = () => {
-  document.getElementById('root').innerHTML = 'DeadEnd Level Editor';
+  globals.pageInstance = new App();
 };
