@@ -8,7 +8,6 @@ class App {
 
   constructor() {
     this.appRoot = document.getElementById('root');
-
     this.editorBoardGrid = document.createElement('div');
 
     this.cellSize = setCellSize();

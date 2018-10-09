@@ -1,4 +1,6 @@
+import { App } from '../components/App';
+
 export interface IGlobals {
-  pageInstance: any; // TODO any
+  pageInstance: App;
   cellSize: number;
 }
