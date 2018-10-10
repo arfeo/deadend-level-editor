@@ -51,8 +51,15 @@
         width: calc(#{$cellSize} * 1.2);
         height: calc(#{$cellSize} * 1.2);
         margin-right: 1vmin;
-        border: 1px solid rgba(255, 255, 255, 0);
+        border: 2px solid transparent;
+        border-radius: 7px;
+        box-shadow: 0 0 10px transparent;
         cursor: pointer;
+
+        &.active {
+          border: 2px solid $objectBorder;
+          box-shadow: 0 0 10px $objectBorder;
+        }
 
         & > canvas {
           width: $cellSize;
