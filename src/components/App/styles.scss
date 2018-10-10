@@ -39,19 +39,24 @@
       display: inherit;
       align-items: inherit;
 
+      &:before {
+        content: 'Objects:';
+        margin-right: 2vmin;
+      }
+
       .-object {
         display: inherit;
         align-items: inherit;
         justify-content: center;
-        width: $cellSize;
-        height: $cellSize;
-        margin: 0 2vmin 0 0;
+        width: calc(#{$cellSize} * 1.2);
+        height: calc(#{$cellSize} * 1.2);
+        margin-right: 1vmin;
         border: 1px solid rgba(255, 255, 255, 0);
         cursor: pointer;
 
         & > canvas {
-          width: 3.5vmin;
-          height: 3.5vmin;
+          width: $cellSize;
+          height: $cellSize;
         }
       }
     }
@@ -71,7 +76,7 @@
         cursor: pointer;
 
         &:before {
-          content: 'Generate';
+          content: 'Generate map';
         }
       }
     }

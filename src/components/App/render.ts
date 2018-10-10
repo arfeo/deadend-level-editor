@@ -1,3 +1,5 @@
+import { GameColors, StoneLabels, STONE_LABEL_FONT } from '../../constants/app';
+
 /**
  * Render the Editor board: grid, canvas, tools panel
  */
@@ -30,6 +32,9 @@ function renderEditorBoard() {
   }
 }
 
+/**
+ * Render tools panel
+ */
 function renderPanel() {
   const panelObjects: HTMLElement = document.createElement('div');
   const panelObjectBallCanvas: HTMLCanvasElement = document.createElement('canvas');
@@ -42,6 +47,23 @@ function renderPanel() {
   const panelObjectStoneLeftCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelActions: HTMLElement = document.createElement('div');
   const panelActionGenerate: HTMLElement = document.createElement('div');
+
+  panelObjectBallCanvas.width = this.cellSize;
+  panelObjectBallCanvas.height = this.cellSize;
+  panelObjectExitCanvas.width = this.cellSize;
+  panelObjectExitCanvas.height = this.cellSize;
+  panelObjectWallCanvas.width = this.cellSize;
+  panelObjectWallCanvas.height = this.cellSize;
+  panelObjectStoneCanvas.width = this.cellSize;
+  panelObjectStoneCanvas.height = this.cellSize;
+  panelObjectStoneUpCanvas.width = this.cellSize;
+  panelObjectStoneUpCanvas.height = this.cellSize;
+  panelObjectStoneRightCanvas.width = this.cellSize;
+  panelObjectStoneRightCanvas.height = this.cellSize;
+  panelObjectStoneDownCanvas.width = this.cellSize;
+  panelObjectStoneDownCanvas.height = this.cellSize;
+  panelObjectStoneLeftCanvas.width = this.cellSize;
+  panelObjectStoneLeftCanvas.height = this.cellSize;
 
   panelObjects.className = '-objects';
   panelActions.className = '-actions';
@@ -74,6 +96,162 @@ function renderPanel() {
   panelObjects.appendChild(this.panelObjects.stoneLeft);
   this.editorPanel.appendChild(panelActions);
   panelActions.appendChild(panelActionGenerate);
+
+  renderBall.call(this, panelObjectBallCanvas.getContext('2d'));
+  renderExit.call(this, panelObjectExitCanvas.getContext('2d'));
+  renderWall.call(this, panelObjectWallCanvas.getContext('2d'));
+  renderStone.call(this, panelObjectStoneCanvas.getContext('2d'));
+  renderStone.call(this, panelObjectStoneUpCanvas.getContext('2d'), 'up');
+  renderStone.call(this, panelObjectStoneRightCanvas.getContext('2d'), 'right');
+  renderStone.call(this, panelObjectStoneDownCanvas.getContext('2d'), 'down');
+  renderStone.call(this, panelObjectStoneLeftCanvas.getContext('2d'), 'left');
 }
 
-export { renderEditorBoard, renderPanel };
+/**
+ * Render the Ball
+ *
+ * @param ctx
+ */
+function renderBall(ctx: CanvasRenderingContext2D) {
+  const grdX: number = this.cellSize / 2;
+  const grdY: number = this.cellSize / 2;
+  const innerRadius: number = this.cellSize / 6;
+  const outerRadius: number = this.cellSize / 3;
+
+  const gradient: CanvasGradient = ctx.createRadialGradient(
+    grdX,
+    grdY,
+    innerRadius,
+    grdX,
+    grdY,
+    outerRadius,
+  );
+  gradient.addColorStop(0, GameColors.BallGradientInner);
+  gradient.addColorStop(1, GameColors.BallGradientOuter);
+
+  ctx.fillStyle = gradient;
+
+  ctx.beginPath();
+  ctx.arc(
+    this.cellSize / 2,
+    this.cellSize / 2,
+    this.cellSize / 2.5,
+    0,
+    Math.PI * 2,
+    false,
+  );
+  ctx.fill();
+}
+
+/**
+ * Render exit
+ *
+ * @param ctx
+ */
+function renderExit(ctx: CanvasRenderingContext2D) {
+  const grdX: number = this.cellSize / 2;
+  const grdY: number = this.cellSize / 2;
+  const innerRadius: number = this.cellSize / 8;
+  const outerRadius: number = this.cellSize / 3;
+
+  const gradient: CanvasGradient = ctx.createRadialGradient(
+    grdX,
+    grdY,
+    innerRadius,
+    grdX,
+    grdY,
+    outerRadius,
+  );
+  gradient.addColorStop(0, GameColors.ExitGradientInner);
+  gradient.addColorStop(1, GameColors.ExitGradientOuter);
+
+  ctx.fillStyle = gradient;
+  ctx.beginPath();
+  ctx.arc(
+    this.cellSize / 2,
+    this.cellSize / 2,
+    this.cellSize / 2.5,
+    0,
+    Math.PI * 2,
+    false,
+  );
+  ctx.fill();
+}
+
+/**
+ * Render wall
+ *
+ * @param ctx
+ */
+function renderWall(ctx: CanvasRenderingContext2D) {
+  ctx.fillStyle = GameColors.Wall;
+  ctx.fillRect(
+    0,
+    0,
+    this.cellSize,
+    this.cellSize,
+  );
+
+  for (let i = 1; i <= 4; i += 1) {
+    ctx.beginPath();
+    ctx.moveTo(
+      0,
+      i * this.cellSize / 4,
+    );
+    ctx.lineTo(
+      this.cellSize,
+      i * this.cellSize / 4,
+    );
+    ctx.stroke();
+  }
+
+  for (let i = 1; i <= 4; i += 1) {
+    ctx.beginPath();
+    ctx.moveTo(
+      (i % 2 === 0 ? 1 : 2) * this.cellSize / 2,
+      (i - 1) * this.cellSize / 4,
+    );
+    ctx.lineTo(
+      (i % 2 === 0 ? 1 : 2) * this.cellSize / 2,
+      (i - 1) * this.cellSize / 4 + this.cellSize / 4,
+    );
+    ctx.stroke();
+  }
+}
+
+/**
+ * Render stone
+ *
+ * @param ctx
+ * @param direction
+ */
+function renderStone(ctx: CanvasRenderingContext2D, direction?: string) {
+  ctx.fillStyle = GameColors.Stone;
+
+  ctx.fillRect(
+    1,
+    1,
+    this.cellSize - 2,
+    this.cellSize - 2,
+  );
+
+  if (direction) {
+    ctx.fillStyle = GameColors.StoneLabel;
+    ctx.font = STONE_LABEL_FONT;
+
+    ctx.fillText(
+      StoneLabels[direction.charAt(0).toUpperCase() + direction.substr(1) as any],
+      this.cellSize / (direction === 'up' || direction === 'down' ? 2.5 : 3.5),
+      this.cellSize / 1.5,
+    );
+  }
+}
+
+export {
+  renderEditorBoard,
+  renderPanel,
+  renderBall,
+  renderWall,
+  renderExit,
+  renderStone,
+};
