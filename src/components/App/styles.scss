@@ -34,5 +34,46 @@
     background-color: $black;
     color: $white;
     font-size: $baseFontSize;
+
+    .-objects {
+      display: inherit;
+      align-items: inherit;
+
+      .-object {
+        display: inherit;
+        align-items: inherit;
+        justify-content: center;
+        width: $cellSize;
+        height: $cellSize;
+        margin: 0 2vmin 0 0;
+        border: 1px solid rgba(255, 255, 255, 0);
+        cursor: pointer;
+
+        & > canvas {
+          width: 3.5vmin;
+          height: 3.5vmin;
+        }
+      }
+    }
+
+    .-actions {
+      .-generate {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: auto;
+        height: $cellSize;
+        margin-left: calc(#{$cellSize} / 2);
+        padding: 0 calc(#{$cellSize} / 2);
+        border-radius: 0.5vmin;
+        background-color: $white;
+        color: $black;
+        cursor: pointer;
+
+        &:before {
+          content: 'Generate';
+        }
+      }
+    }
   }
 }
