@@ -22,6 +22,8 @@ function renderEditorBoard() {
       const cellCanvas: HTMLCanvasElement = document.createElement('canvas');
 
       cell.id = `cell-${y}-${x}`;
+      cell.setAttribute('x', x.toString());
+      cell.setAttribute('y', y.toString());
       cell.className = '-cell';
       cellCanvas.width = this.cellSize;
       cellCanvas.height = this.cellSize;
@@ -46,7 +48,6 @@ function renderPanel() {
   const panelObjectStoneDownCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectStoneLeftCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelActions: HTMLElement = document.createElement('div');
-  const panelActionGenerate: HTMLElement = document.createElement('div');
 
   panelObjectBallCanvas.width = this.cellSize;
   panelObjectBallCanvas.height = this.cellSize;
@@ -68,14 +69,22 @@ function renderPanel() {
   panelObjects.className = '-objects';
   panelActions.className = '-actions';
   this.panelObjects.ball.className = '-object';
+  this.panelObjects.ball.setAttribute('key', '1');
   this.panelObjects.exit.className = '-object';
+  this.panelObjects.exit.setAttribute('key', '2');
   this.panelObjects.wall.className = '-object';
+  this.panelObjects.wall.setAttribute('key', '3');
   this.panelObjects.stone.className = '-object';
+  this.panelObjects.stone.setAttribute('key', '4');
   this.panelObjects.stoneUp.className = '-object';
+  this.panelObjects.stoneUp.setAttribute('key', '5');
   this.panelObjects.stoneRight.className = '-object';
+  this.panelObjects.stoneRight.setAttribute('key', '6');
   this.panelObjects.stoneDown.className = '-object';
+  this.panelObjects.stoneDown.setAttribute('key', '7');
   this.panelObjects.stoneLeft.className = '-object';
-  panelActionGenerate.className = '-generate';
+  this.panelObjects.stoneLeft.setAttribute('key', '8');
+  this.panelActions.generate.className = '-generate';
 
   this.editorPanel.appendChild(panelObjects);
   panelObjects.appendChild(this.panelObjects.ball);
@@ -95,7 +104,7 @@ function renderPanel() {
   panelObjects.appendChild(this.panelObjects.stoneDown);
   panelObjects.appendChild(this.panelObjects.stoneLeft);
   this.editorPanel.appendChild(panelActions);
-  panelActions.appendChild(panelActionGenerate);
+  panelActions.appendChild(this.panelActions.generate);
 
   renderBall.call(this, panelObjectBallCanvas.getContext('2d'));
   renderExit.call(this, panelObjectExitCanvas.getContext('2d'));

@@ -1,5 +1,13 @@
+import { globals } from '../../constants/globals';
+
 import { setCellSize } from '../../utils/common';
 import { renderEditorBoard, renderPanel } from './render';
+import {
+  setUpEventHandlers,
+  removeEventHandlers,
+  panelObjectClickHandler,
+  panelActionClickHandler,
+} from './events';
 
 class App {
   appRoot: HTMLElement;
@@ -14,13 +22,18 @@ class App {
     stoneRight: HTMLElement;
     stoneDown: HTMLElement;
     stoneLeft: HTMLElement;
-  }
+  };
+  panelActions: {
+    generate: HTMLElement;
+  };
   cellSize: number;
+  currentObject: number;
 
   constructor() {
     this.appRoot = document.getElementById('root');
     this.editorBoardGrid = document.createElement('div');
     this.editorPanel = document.createElement('div');
+
     this.panelObjects = {
       ball: document.createElement('div'),
       exit: document.createElement('div'),
@@ -32,6 +45,15 @@ class App {
       stoneLeft: document.createElement('div'),
     };
 
+    this.panelActions = {
+      generate: document.createElement('div'),
+    };
+
+    this.currentObject = 0;
+
+    globals.eventListeners.onPanelObjectClick = panelObjectClickHandler.bind(this);
+    globals.eventListeners.onPanelActionClick = panelActionClickHandler.bind(this);
+
     this.cellSize = setCellSize();
 
     this.render();
@@ -40,6 +62,14 @@ class App {
   render() {
     renderEditorBoard.call(this);
     renderPanel.call(this);
+
+    setUpEventHandlers.call(this);
+  }
+
+  destroy() {
+    removeEventHandlers.call(this);
+
+    globals.pageInstance = null;
   }
 }
 
