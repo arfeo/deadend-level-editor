@@ -1,5 +1,7 @@
 import { globals } from '../../constants/globals';
 
+import { renderBall, renderExit, renderStone, renderWall } from './render';
+
 /**
  * Set up app event listeners
  */
@@ -62,9 +64,37 @@ function panelActionClickHandler(event: MouseEvent) {
   // ..
 }
 
+/**
+ * Grid cell click handler
+ *
+ * @param event
+ */
+function gridCellClickHandler(event: MouseEvent) {
+  event.stopPropagation();
+
+  const currentCanvas: HTMLCanvasElement = event.target as HTMLCanvasElement;
+  const ctx: CanvasRenderingContext2D = currentCanvas.getContext('2d');
+
+  switch (this.currentObject) {
+    case 1: return renderBall.call(this, ctx);
+    case 2: return renderExit.call(this, ctx);
+    case 3: return renderWall.call(this, ctx);
+    case 4: return renderStone.call(this, ctx);
+    case 5: return renderStone.call(this, ctx, 'up');
+    case 6: return renderStone.call(this, ctx, 'right');
+    case 7: return renderStone.call(this, ctx, 'down');
+    case 8: return renderStone.call(this, ctx, 'left');
+    default: {
+      alert('Choose the object');
+      break;
+    }
+  }
+}
+
 export {
   setUpEventHandlers,
   removeEventHandlers,
   panelObjectClickHandler,
   panelActionClickHandler,
+  gridCellClickHandler,
 };

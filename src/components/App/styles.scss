@@ -69,10 +69,14 @@
     }
 
     .-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .-reset,
       .-generate {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        display: inherit;
+        align-items: inherit;
         width: auto;
         height: $cellSize;
         margin-left: calc(#{$cellSize} / 2);
@@ -81,10 +85,6 @@
         background-color: $white;
         color: $black;
         cursor: pointer;
-
-        &:before {
-          content: 'Generate map';
-        }
       }
     }
   }

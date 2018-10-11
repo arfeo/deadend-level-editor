@@ -1,5 +1,7 @@
 import { GameColors, StoneLabels, STONE_LABEL_FONT } from '../../constants/app';
 
+import { gridCellClickHandler } from './events';
+
 /**
  * Render the Editor board: grid, canvas, tools panel
  */
@@ -21,15 +23,14 @@ function renderEditorBoard() {
       const cell: HTMLElement = document.createElement('div');
       const cellCanvas: HTMLCanvasElement = document.createElement('canvas');
 
-      cell.id = `cell-${y}-${x}`;
-      cell.setAttribute('x', x.toString());
-      cell.setAttribute('y', y.toString());
       cell.className = '-cell';
       cellCanvas.width = this.cellSize;
       cellCanvas.height = this.cellSize;
 
       this.editorBoardGrid.appendChild(cell);
       cell.appendChild(cellCanvas);
+
+      cellCanvas.addEventListener('click', gridCellClickHandler.bind(this));
     }
   }
 }
@@ -84,6 +85,7 @@ function renderPanel() {
   this.panelObjects.stoneDown.setAttribute('key', '7');
   this.panelObjects.stoneLeft.className = '-object';
   this.panelObjects.stoneLeft.setAttribute('key', '8');
+  this.panelActions.reset.className = '-reset';
   this.panelActions.generate.className = '-generate';
 
   this.editorPanel.appendChild(panelObjects);
@@ -104,7 +106,10 @@ function renderPanel() {
   panelObjects.appendChild(this.panelObjects.stoneDown);
   panelObjects.appendChild(this.panelObjects.stoneLeft);
   this.editorPanel.appendChild(panelActions);
+  panelActions.appendChild(this.panelActions.reset);
   panelActions.appendChild(this.panelActions.generate);
+  this.panelActions.reset.innerText = 'Reset';
+  this.panelActions.generate.innerText = 'Generate';
 
   renderBall.call(this, panelObjectBallCanvas.getContext('2d'));
   renderExit.call(this, panelObjectExitCanvas.getContext('2d'));

@@ -24,6 +24,7 @@ class App {
     stoneLeft: HTMLElement;
   };
   panelActions: {
+    reset: HTMLElement;
     generate: HTMLElement;
   };
   cellSize: number;
@@ -46,15 +47,15 @@ class App {
     };
 
     this.panelActions = {
+      reset: document.createElement('div'),
       generate: document.createElement('div'),
     };
 
     this.currentObject = 0;
+    this.cellSize = setCellSize();
 
     globals.eventListeners.onPanelObjectClick = panelObjectClickHandler.bind(this);
     globals.eventListeners.onPanelActionClick = panelActionClickHandler.bind(this);
-
-    this.cellSize = setCellSize();
 
     this.render();
   }
