@@ -30,6 +30,7 @@ class App {
   };
   cellSize: number;
   currentObject: number;
+  currentMap: number[][];
 
   constructor() {
     this.appRoot = document.getElementById('root');
@@ -54,6 +55,9 @@ class App {
 
     this.currentObject = 0;
     this.cellSize = setCellSize();
+    this.currentMap = [];
+
+    this.resetMap();
 
     globals.eventListeners.onGridCellClick = gridCellClickHandler.bind(this);
     globals.eventListeners.onPanelObjectClick = panelObjectClickHandler.bind(this);
@@ -73,6 +77,16 @@ class App {
     removeEventHandlers.call(this);
 
     globals.pageInstance = null;
+  }
+
+  resetMap() {
+    for (let y = 0; y < 20; y += 1) {
+      this.currentMap[y] = [];
+
+      for (let x = 0; x < 32; x += 1) {
+        this.currentMap[y].push(0);
+      }
+    }
   }
 }
 

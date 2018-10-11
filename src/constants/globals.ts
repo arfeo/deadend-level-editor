@@ -7,5 +7,5 @@ export const globals: IGlobals = {
     onPanelObjectClick: null,
     onPanelActionClick: null,
   },
-  cellSize: 0,
+  cellSize: null,
 };

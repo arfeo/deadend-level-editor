@@ -78,19 +78,25 @@ function panelActionClickHandler(event: MouseEvent) {
 
   switch (actionType) {
     case 'reset': {
-      const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
-        '.editorBoard .-grid .-cell .-canvas'
-      ) as NodeListOf<HTMLCanvasElement>;
+      if (confirm('Are you sure you want to reset current map?')) {
+        const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
+          '.editorBoard .-grid .-cell .-canvas'
+        ) as NodeListOf<HTMLCanvasElement>;
 
-      for (const key in cells) {
-        if (cells.hasOwnProperty(key)) {
-          clearCell.call(this, cells[key].getContext('2d'));
+        for (const key in cells) {
+          if (cells.hasOwnProperty(key)) {
+            clearCell.call(this, cells[key].getContext('2d'));
+          }
         }
+
+        this.resetMap();
       }
 
       break;
     }
     case 'generate': {
+      console.log(this.currentMap);
+
       break;
     }
     default: break;
@@ -107,6 +113,10 @@ function gridCellClickHandler(event: MouseEvent) {
 
   const currentCanvas: HTMLCanvasElement = event.target as HTMLCanvasElement;
   const ctx: CanvasRenderingContext2D = currentCanvas.getContext('2d');
+  const cellX: number = parseInt(currentCanvas.getAttribute('x'));
+  const cellY: number = parseInt(currentCanvas.getAttribute('y'));
+
+  this.currentMap[cellY][cellX] = this.currentObject;
 
   switch (this.currentObject) {
     case 1: return renderBall.call(this, ctx);

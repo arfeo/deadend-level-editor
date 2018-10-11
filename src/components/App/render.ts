@@ -26,6 +26,8 @@ function renderEditorBoard() {
       cellCanvas.className = '-canvas';
       cellCanvas.width = this.cellSize;
       cellCanvas.height = this.cellSize;
+      cellCanvas.setAttribute('x', x.toString());
+      cellCanvas.setAttribute('y', y.toString());
 
       this.editorBoardGrid.appendChild(cell);
       cell.appendChild(cellCanvas);
