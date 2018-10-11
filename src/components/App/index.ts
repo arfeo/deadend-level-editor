@@ -32,6 +32,8 @@ class App {
   cellSize: number;
   currentObject: number;
   currentMap: number[][];
+  currentBallPosition: number[];
+  currentExitPosition: number[];
 
   constructor() {
     this.appRoot = document.getElementById('root');
@@ -58,6 +60,8 @@ class App {
     this.currentObject = -1;
     this.cellSize = setCellSize();
     this.currentMap = [];
+    this.currentBallPosition = [];
+    this.currentExitPosition = [];
 
     this.resetMap();
 

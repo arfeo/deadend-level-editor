@@ -24,6 +24,7 @@ function renderEditorBoard() {
       const cellCanvas: HTMLCanvasElement = document.createElement('canvas');
 
       cell.className = '-cell';
+      cellCanvas.id = `canvas-${y}-${x}`;
       cellCanvas.className = '-canvas';
       cellCanvas.width = this.cellSize;
       cellCanvas.height = this.cellSize;

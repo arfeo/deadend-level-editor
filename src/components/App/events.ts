@@ -116,12 +116,48 @@ function gridCellClickHandler(event: MouseEvent) {
   const cellX: number = parseInt(currentCanvas.getAttribute('x'));
   const cellY: number = parseInt(currentCanvas.getAttribute('y'));
 
+  if (this.currentMap[cellY][cellX] === 1) {
+    this.currentBallPosition = [];
+  }
+
+  if (this.currentMap[cellY][cellX] === 2) {
+    this.currentExitPosition = [];
+  }
+
   this.currentMap[cellY][cellX] = this.currentObject;
 
   switch (this.currentObject) {
     case 0: return clearCell.call(this, ctx);
-    case 1: return renderBall.call(this, ctx);
-    case 2: return renderExit.call(this, ctx);
+    case 1: {
+      if (this.currentBallPosition.length > 0) {
+        const ballX: number = this.currentBallPosition[1];
+        const ballY: number = this.currentBallPosition[0];
+        const oldBallCanvas: HTMLCanvasElement = document.getElementById(
+          `canvas-${ballY}-${ballX}`
+        ) as HTMLCanvasElement;
+
+        clearCell.call(this, oldBallCanvas.getContext('2d'));
+      }
+
+      this.currentBallPosition = [cellY, cellX];
+
+      return renderBall.call(this, ctx);
+    }
+    case 2: {
+      if (this.currentExitPosition.length > 0) {
+        const exitX: number = this.currentExitPosition[1];
+        const exitY: number = this.currentExitPosition[0];
+        const oldExitCanvas: HTMLCanvasElement = document.getElementById(
+          `canvas-${exitY}-${exitX}`
+        ) as HTMLCanvasElement;
+
+        clearCell.call(this, oldExitCanvas.getContext('2d'));
+      }
+
+      this.currentExitPosition = [cellY, cellX];
+
+      return renderExit.call(this, ctx);
+    }
     case 3: return renderWall.call(this, ctx);
     case 4: return renderStone.call(this, ctx);
     case 5: return renderStone.call(this, ctx, 'up');
