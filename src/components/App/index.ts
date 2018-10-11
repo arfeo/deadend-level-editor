@@ -23,6 +23,7 @@ class App {
     stoneRight: HTMLElement;
     stoneDown: HTMLElement;
     stoneLeft: HTMLElement;
+    eraser: HTMLElement;
   };
   panelActions: {
     reset: HTMLElement;
@@ -46,6 +47,7 @@ class App {
       stoneRight: document.createElement('div'),
       stoneDown: document.createElement('div'),
       stoneLeft: document.createElement('div'),
+      eraser: document.createElement('div'),
     };
 
     this.panelActions = {
@@ -53,7 +55,7 @@ class App {
       generate: document.createElement('div'),
     };
 
-    this.currentObject = 0;
+    this.currentObject = -1;
     this.cellSize = setCellSize();
     this.currentMap = [];
 

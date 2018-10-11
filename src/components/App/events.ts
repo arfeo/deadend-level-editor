@@ -119,6 +119,7 @@ function gridCellClickHandler(event: MouseEvent) {
   this.currentMap[cellY][cellX] = this.currentObject;
 
   switch (this.currentObject) {
+    case 0: return clearCell.call(this, ctx);
     case 1: return renderBall.call(this, ctx);
     case 2: return renderExit.call(this, ctx);
     case 3: return renderWall.call(this, ctx);

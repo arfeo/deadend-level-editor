@@ -1,3 +1,4 @@
+// tslint:disable:max-file-line-count
 import { globals } from '../../constants/globals';
 import { GameColors, StoneLabels, STONE_LABEL_FONT } from '../../constants/app';
 
@@ -50,6 +51,7 @@ function renderPanel() {
   const panelObjectStoneRightCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectStoneDownCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectStoneLeftCanvas: HTMLCanvasElement = document.createElement('canvas');
+  const panelObjectEraserCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelActions: HTMLElement = document.createElement('div');
 
   panelObjectBallCanvas.width = this.cellSize;
@@ -68,6 +70,8 @@ function renderPanel() {
   panelObjectStoneDownCanvas.height = this.cellSize;
   panelObjectStoneLeftCanvas.width = this.cellSize;
   panelObjectStoneLeftCanvas.height = this.cellSize;
+  panelObjectEraserCanvas.width = this.cellSize;
+  panelObjectEraserCanvas.height = this.cellSize;
 
   panelObjects.className = '-objects';
   panelActions.className = '-actions';
@@ -87,6 +91,8 @@ function renderPanel() {
   this.panelObjects.stoneDown.setAttribute('key', '7');
   this.panelObjects.stoneLeft.className = '-object';
   this.panelObjects.stoneLeft.setAttribute('key', '8');
+  this.panelObjects.eraser.className = '-object';
+  this.panelObjects.eraser.setAttribute('key', '0');
   this.panelActions.reset.className = '-reset';
   this.panelActions.generate.className = '-generate';
 
@@ -100,6 +106,7 @@ function renderPanel() {
   this.panelObjects.stoneRight.appendChild(panelObjectStoneRightCanvas);
   this.panelObjects.stoneDown.appendChild(panelObjectStoneDownCanvas);
   this.panelObjects.stoneLeft.appendChild(panelObjectStoneLeftCanvas);
+  this.panelObjects.eraser.appendChild(panelObjectEraserCanvas);
   panelObjects.appendChild(this.panelObjects.exit);
   panelObjects.appendChild(this.panelObjects.wall);
   panelObjects.appendChild(this.panelObjects.stone);
@@ -107,6 +114,7 @@ function renderPanel() {
   panelObjects.appendChild(this.panelObjects.stoneRight);
   panelObjects.appendChild(this.panelObjects.stoneDown);
   panelObjects.appendChild(this.panelObjects.stoneLeft);
+  panelObjects.appendChild(this.panelObjects.eraser);
   this.editorPanel.appendChild(panelActions);
   panelActions.appendChild(this.panelActions.reset);
   panelActions.appendChild(this.panelActions.generate);
@@ -123,6 +131,7 @@ function renderPanel() {
   renderStone.call(this, panelObjectStoneRightCanvas.getContext('2d'), 'right');
   renderStone.call(this, panelObjectStoneDownCanvas.getContext('2d'), 'down');
   renderStone.call(this, panelObjectStoneLeftCanvas.getContext('2d'), 'left');
+  renderEraser.call(this, panelObjectEraserCanvas.getContext('2d'));
 }
 
 /**
@@ -273,6 +282,27 @@ function renderStone(ctx: CanvasRenderingContext2D, direction?: string) {
   }
 }
 
+/**
+ * Render eraser tool icon
+ *
+ * @param ctx
+ */
+function renderEraser(ctx: CanvasRenderingContext2D) {
+  ctx.fillStyle = GameColors.Eraser;
+  ctx.font = STONE_LABEL_FONT;
+
+  ctx.fillText(
+    StoneLabels.Eraser,
+    this.cellSize / 3,
+    this.cellSize / 1.5,
+  );
+}
+
+/**
+ * Clear cell canvas completely
+ *
+ * @param ctx
+ */
 function clearCell(ctx: CanvasRenderingContext2D) {
   ctx.clearRect(
     0,

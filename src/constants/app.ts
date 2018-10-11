@@ -6,6 +6,7 @@ export enum GameColors {
   Wall = 'red',
   Stone = 'grey',
   StoneLabel = 'black',
+  Eraser = 'red',
 }
 
 export enum StoneLabels {
@@ -13,6 +14,7 @@ export enum StoneLabels {
   Right = '→',
   Down = '↓',
   Left = '←',
+  Eraser = '✕',
 }
 
 export const STONE_LABEL_FONT = '2vmin Helvetica, Arial';
