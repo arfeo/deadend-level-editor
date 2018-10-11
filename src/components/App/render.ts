@@ -1,6 +1,5 @@
+import { globals } from '../../constants/globals';
 import { GameColors, StoneLabels, STONE_LABEL_FONT } from '../../constants/app';
-
-import { gridCellClickHandler } from './events';
 
 /**
  * Render the Editor board: grid, canvas, tools panel
@@ -31,7 +30,7 @@ function renderEditorBoard() {
       this.editorBoardGrid.appendChild(cell);
       cell.appendChild(cellCanvas);
 
-      cellCanvas.addEventListener('click', gridCellClickHandler.bind(this));
+      cellCanvas.addEventListener('click', globals.eventListeners.onGridCellClick);
     }
   }
 }

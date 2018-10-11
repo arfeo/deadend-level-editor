@@ -34,6 +34,16 @@ function removeEventHandlers() {
       this.panelActions[key].removeEventListener('click', globals.eventListeners.onPanelActionClick);
     }
   }
+
+  const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
+    '.editorBoard .-grid .-cell .-canvas'
+  ) as NodeListOf<HTMLCanvasElement>;
+
+  for (const key in cells) {
+    if (cells.hasOwnProperty(key)) {
+      cells[key].removeEventListener('click', globals.eventListeners.onGridCellClick);
+    }
+  }
 }
 
 /**

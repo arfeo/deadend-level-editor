@@ -7,6 +7,7 @@ import {
   removeEventHandlers,
   panelObjectClickHandler,
   panelActionClickHandler,
+  gridCellClickHandler,
 } from './events';
 
 class App {
@@ -54,6 +55,7 @@ class App {
     this.currentObject = 0;
     this.cellSize = setCellSize();
 
+    globals.eventListeners.onGridCellClick = gridCellClickHandler.bind(this);
     globals.eventListeners.onPanelObjectClick = panelObjectClickHandler.bind(this);
     globals.eventListeners.onPanelActionClick = panelActionClickHandler.bind(this);
 
