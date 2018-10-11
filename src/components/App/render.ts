@@ -24,6 +24,7 @@ function renderEditorBoard() {
       const cellCanvas: HTMLCanvasElement = document.createElement('canvas');
 
       cell.className = '-cell';
+      cellCanvas.className = '-canvas';
       cellCanvas.width = this.cellSize;
       cellCanvas.height = this.cellSize;
 
@@ -109,7 +110,9 @@ function renderPanel() {
   panelActions.appendChild(this.panelActions.reset);
   panelActions.appendChild(this.panelActions.generate);
   this.panelActions.reset.innerText = 'Reset';
+  this.panelActions.reset.setAttribute('action', 'reset');
   this.panelActions.generate.innerText = 'Generate';
+  this.panelActions.generate.setAttribute('action', 'generate');
 
   renderBall.call(this, panelObjectBallCanvas.getContext('2d'));
   renderExit.call(this, panelObjectExitCanvas.getContext('2d'));
@@ -131,6 +134,8 @@ function renderBall(ctx: CanvasRenderingContext2D) {
   const grdY: number = this.cellSize / 2;
   const innerRadius: number = this.cellSize / 6;
   const outerRadius: number = this.cellSize / 3;
+
+  clearCell.call(this, ctx);
 
   const gradient: CanvasGradient = ctx.createRadialGradient(
     grdX,
@@ -168,6 +173,8 @@ function renderExit(ctx: CanvasRenderingContext2D) {
   const innerRadius: number = this.cellSize / 8;
   const outerRadius: number = this.cellSize / 3;
 
+  clearCell.call(this, ctx);
+
   const gradient: CanvasGradient = ctx.createRadialGradient(
     grdX,
     grdY,
@@ -198,6 +205,8 @@ function renderExit(ctx: CanvasRenderingContext2D) {
  * @param ctx
  */
 function renderWall(ctx: CanvasRenderingContext2D) {
+  clearCell.call(this, ctx);
+
   ctx.fillStyle = GameColors.Wall;
   ctx.fillRect(
     0,
@@ -240,6 +249,8 @@ function renderWall(ctx: CanvasRenderingContext2D) {
  * @param direction
  */
 function renderStone(ctx: CanvasRenderingContext2D, direction?: string) {
+  clearCell.call(this, ctx);
+
   ctx.fillStyle = GameColors.Stone;
 
   ctx.fillRect(
@@ -261,6 +272,15 @@ function renderStone(ctx: CanvasRenderingContext2D, direction?: string) {
   }
 }
 
+function clearCell(ctx: CanvasRenderingContext2D) {
+  ctx.clearRect(
+    0,
+    0,
+    this.cellSize,
+    this.cellSize,
+  );
+}
+
 export {
   renderEditorBoard,
   renderPanel,
@@ -268,4 +288,5 @@ export {
   renderWall,
   renderExit,
   renderStone,
+  clearCell,
 };

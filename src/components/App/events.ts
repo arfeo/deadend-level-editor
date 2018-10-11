@@ -1,6 +1,6 @@
 import { globals } from '../../constants/globals';
 
-import { renderBall, renderExit, renderStone, renderWall } from './render';
+import { renderBall, renderExit, renderStone, renderWall, clearCell } from './render';
 
 /**
  * Set up app event listeners
@@ -61,7 +61,30 @@ function panelObjectClickHandler(event: MouseEvent) {
  * @param event
  */
 function panelActionClickHandler(event: MouseEvent) {
-  // ..
+  event.stopPropagation();
+
+  const action: HTMLElement = event.target as HTMLElement;
+  const actionType: string = action.getAttribute('action');
+
+  switch (actionType) {
+    case 'reset': {
+      const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
+        '.editorBoard .-grid .-cell .-canvas'
+      ) as NodeListOf<HTMLCanvasElement>;
+
+      for (const key in cells) {
+        if (cells.hasOwnProperty(key)) {
+          clearCell.call(this, cells[key].getContext('2d'));
+        }
+      }
+
+      break;
+    }
+    case 'generate': {
+      break;
+    }
+    default: break;
+  }
 }
 
 /**
@@ -86,7 +109,8 @@ function gridCellClickHandler(event: MouseEvent) {
     case 8: return renderStone.call(this, ctx, 'left');
     default: {
       alert('Choose the object');
-      break;
+
+      return;
     }
   }
 }
