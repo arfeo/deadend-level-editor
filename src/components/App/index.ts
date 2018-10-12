@@ -93,6 +93,9 @@ class App {
         this.currentMap[y].push(0);
       }
     }
+
+    this.currentBallPosition = [];
+    this.currentExitPosition = [];
   }
 }
 
