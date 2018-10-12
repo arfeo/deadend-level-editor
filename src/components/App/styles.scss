@@ -65,6 +65,10 @@
           width: $cellSize;
           height: $cellSize;
         }
+
+        &.eraser {
+          margin-left: 3vmin;
+        }
       }
     }
 

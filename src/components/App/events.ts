@@ -165,7 +165,7 @@ function gridCellClickHandler(event: MouseEvent) {
     case 7: return renderStone.call(this, ctx, 'down');
     case 8: return renderStone.call(this, ctx, 'left');
     default: {
-      alert('Choose the object');
+      alert('Choose the object to insert');
 
       return;
     }
