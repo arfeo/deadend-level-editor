@@ -7,7 +7,7 @@ class GeneratedMap extends Modal {
   }
 
   render() {
-    const textContainer = document.createElement('div');
+    const textContainer: HTMLElement = document.createElement('div');
 
     textContainer.innerHTML = (`
       Hello world.
