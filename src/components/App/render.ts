@@ -1,5 +1,4 @@
 // tslint:disable:max-file-line-count
-import { globals } from '../../constants/globals';
 import { GameColors, StoneLabels, STONE_LABEL_FONT } from '../../constants/app';
 
 /**
@@ -33,8 +32,6 @@ function renderEditorBoard() {
 
       this.editorBoardGrid.appendChild(cell);
       cell.appendChild(cellCanvas);
-
-      cellCanvas.addEventListener('click', globals.eventListeners.onGridCellClick);
     }
   }
 }

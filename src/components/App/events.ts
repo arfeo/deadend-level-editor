@@ -1,5 +1,7 @@
 import { globals } from '../../constants/globals';
 
+import { GeneratedMap } from '../GeneratedMap';
+
 import { renderBall, renderExit, renderStone, renderWall, clearCell } from './render';
 
 /**
@@ -15,6 +17,16 @@ function setUpEventHandlers() {
   for (const key in this.panelActions) {
     if (this.panelActions.hasOwnProperty(key)) {
       this.panelActions[key].addEventListener('click', globals.eventListeners.onPanelActionClick);
+    }
+  }
+
+  const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
+    '.editorBoard .-grid .-cell .-canvas'
+  ) as NodeListOf<HTMLCanvasElement>;
+
+  for (const key in cells) {
+    if (cells.hasOwnProperty(key)) {
+      cells[key].addEventListener('click', globals.eventListeners.onGridCellClick);
     }
   }
 }
@@ -100,6 +112,8 @@ function panelActionClickHandler(event: MouseEvent) {
 
         return;
       }
+
+      new GeneratedMap(this);
 
       break;
     }
