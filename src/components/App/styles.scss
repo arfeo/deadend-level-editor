@@ -61,11 +61,6 @@
           box-shadow: 0 0 10px $objectBorder;
         }
 
-        & > canvas {
-          width: $cellSize;
-          height: $cellSize;
-        }
-
         &.eraser {
           margin-left: 3vmin;
         }

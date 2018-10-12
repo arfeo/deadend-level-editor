@@ -95,7 +95,11 @@ function panelActionClickHandler(event: MouseEvent) {
       break;
     }
     case 'generate': {
-      console.log(this.currentMap);
+      if (this.currentBallPosition.length === 0 || this.currentExitPosition.length === 0) {
+        alert('There should be Ball and Exit objects on the map');
+
+        return;
+      }
 
       break;
     }
