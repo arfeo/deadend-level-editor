@@ -1,11 +1,7 @@
 import { IGlobals } from '../types/constants';
 
-export const globals: IGlobals = {
+export const APP: IGlobals = {
   pageInstance: null,
-  eventListeners: {
-    onGridCellClick: null,
-    onPanelObjectClick: null,
-    onPanelActionClick: null,
-  },
+  eventListeners: null,
   cellSize: null,
 };

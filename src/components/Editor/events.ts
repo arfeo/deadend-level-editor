@@ -1,5 +1,6 @@
-import { globals } from '../../constants/globals';
+import { APP } from '../../constants/globals';
 
+import { Actions, MapObjects } from '../../constants/app';
 import { GeneratedMap } from '../GeneratedMap';
 
 import { renderBall, renderExit, renderStone, renderWall, clearCell } from './render';
@@ -8,15 +9,21 @@ import { renderBall, renderExit, renderStone, renderWall, clearCell } from './re
  * Set up app event listeners
  */
 function setUpEventHandlers() {
+  APP.eventListeners = {
+    onGridCellClick: gridCellClickHandler.bind(this),
+    onPanelObjectClick: panelObjectClickHandler.bind(this),
+    onPanelActionClick: panelActionClickHandler.bind(this),
+  };
+
   for (const key in this.panelObjects) {
     if (this.panelObjects.hasOwnProperty(key)) {
-      this.panelObjects[key].addEventListener('click', globals.eventListeners.onPanelObjectClick);
+      this.panelObjects[key].addEventListener('click', APP.eventListeners.onPanelObjectClick);
     }
   }
 
   for (const key in this.panelActions) {
     if (this.panelActions.hasOwnProperty(key)) {
-      this.panelActions[key].addEventListener('click', globals.eventListeners.onPanelActionClick);
+      this.panelActions[key].addEventListener('click', APP.eventListeners.onPanelActionClick);
     }
   }
 
@@ -26,7 +33,7 @@ function setUpEventHandlers() {
 
   for (const key in cells) {
     if (cells.hasOwnProperty(key)) {
-      cells[key].addEventListener('click', globals.eventListeners.onGridCellClick);
+      cells[key].addEventListener('click', APP.eventListeners.onGridCellClick);
     }
   }
 }
@@ -37,13 +44,13 @@ function setUpEventHandlers() {
 function removeEventHandlers() {
   for (const key in this.panelObjects) {
     if (this.panelObjects.hasOwnProperty(key)) {
-      this.panelObjects[key].removeEventListener('click', globals.eventListeners.onPanelObjectClick);
+      this.panelObjects[key].removeEventListener('click', APP.eventListeners.onPanelObjectClick);
     }
   }
 
   for (const key in this.panelActions) {
     if (this.panelActions.hasOwnProperty(key)) {
-      this.panelActions[key].removeEventListener('click', globals.eventListeners.onPanelActionClick);
+      this.panelActions[key].removeEventListener('click', APP.eventListeners.onPanelActionClick);
     }
   }
 
@@ -53,7 +60,7 @@ function removeEventHandlers() {
 
   for (const key in cells) {
     if (cells.hasOwnProperty(key)) {
-      cells[key].removeEventListener('click', globals.eventListeners.onGridCellClick);
+      cells[key].removeEventListener('click', APP.eventListeners.onGridCellClick);
     }
   }
 }
@@ -74,7 +81,7 @@ function panelObjectClickHandler(event: MouseEvent) {
 
   currentObject.classList.add('active');
 
-  this.currentObject = parseInt(currentObject.getAttribute('key'));
+  this.selectedObject = parseInt(currentObject.getAttribute('key'));
 }
 
 /**
@@ -89,7 +96,7 @@ function panelActionClickHandler(event: MouseEvent) {
   const actionType: string = action.getAttribute('action');
 
   switch (actionType) {
-    case 'reset': {
+    case Actions.Reset: {
       if (confirm('Are you sure you want to reset current map?')) {
         const cells: NodeListOf<HTMLCanvasElement> = document.querySelectorAll(
           '.editorBoard .-grid .-cell .-canvas'
@@ -106,7 +113,7 @@ function panelActionClickHandler(event: MouseEvent) {
 
       break;
     }
-    case 'generate': {
+    case Actions.Generate: {
       if (this.currentBallPosition.length === 0 || this.currentExitPosition.length === 0) {
         alert('There should be Ball and Exit objects on the map');
 
@@ -142,11 +149,11 @@ function gridCellClickHandler(event: MouseEvent) {
     this.currentExitPosition = [];
   }
 
-  this.currentMap[cellY][cellX] = this.currentObject;
+  this.currentMap[cellY][cellX] = this.selectedObject;
 
-  switch (this.currentObject) {
-    case 0: return clearCell.call(this, ctx);
-    case 1: {
+  switch (this.selectedObject) {
+    case MapObjects.Eraser: return clearCell.call(this, ctx);
+    case MapObjects.Ball: {
       if (this.currentBallPosition.length > 0) {
         const ballX: number = this.currentBallPosition[1];
         const ballY: number = this.currentBallPosition[0];
@@ -161,7 +168,7 @@ function gridCellClickHandler(event: MouseEvent) {
 
       return renderBall.call(this, ctx);
     }
-    case 2: {
+    case MapObjects.Exit: {
       if (this.currentExitPosition.length > 0) {
         const exitX: number = this.currentExitPosition[1];
         const exitY: number = this.currentExitPosition[0];
@@ -176,12 +183,12 @@ function gridCellClickHandler(event: MouseEvent) {
 
       return renderExit.call(this, ctx);
     }
-    case 3: return renderWall.call(this, ctx);
-    case 4: return renderStone.call(this, ctx);
-    case 5: return renderStone.call(this, ctx, 'up');
-    case 6: return renderStone.call(this, ctx, 'right');
-    case 7: return renderStone.call(this, ctx, 'down');
-    case 8: return renderStone.call(this, ctx, 'left');
+    case MapObjects.Wall: return renderWall.call(this, ctx);
+    case MapObjects.StoneRegular: return renderStone.call(this, ctx);
+    case MapObjects.StoneUp: return renderStone.call(this, ctx, 'up');
+    case MapObjects.StoneRight: return renderStone.call(this, ctx, 'right');
+    case MapObjects.StoneDown: return renderStone.call(this, ctx, 'down');
+    case MapObjects.StoneLeft: return renderStone.call(this, ctx, 'left');
     default: {
       alert('Choose the object to insert');
 

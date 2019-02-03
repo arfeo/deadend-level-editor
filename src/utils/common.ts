@@ -1,12 +1,22 @@
-import { globals } from '../constants/globals';
+import { APP } from '../constants/globals';
 
-export const calculateVMin = (): number => {
+/**
+ * Function calculates the analogue of CSS vmin in pixels
+ */
+function calculateVMin(): number {
   const vpWidth: number = window.innerWidth;
   const vpHeight: number = window.innerHeight;
 
   return vpWidth >= vpHeight ? (vpHeight / 100) : (vpWidth / 100);
-};
+}
 
-export const setCellSize = (): number => {
-  return globals.cellSize > 0 ? globals.cellSize : (calculateVMin() * 4  / 10) * 10;
-};
+/**
+ * Function returns the cell size (atomic canvas measure)
+ * depending on the screen size if no cell size is given in the app settings,
+ * or cell size given in the app settings
+ */
+function setCellSize(): number {
+  return APP.cellSize > 0 ? APP.cellSize : Math.round(calculateVMin() * 4  / 10) * 10;
+}
+
+export { setCellSize };

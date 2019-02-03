@@ -5,15 +5,36 @@ import { GameColors, StoneLabels, STONE_LABEL_FONT } from '../../constants/app';
  * Render the Editor board: grid, canvas, tools panel
  */
 function renderEditorBoard() {
+  const appRoot: HTMLElement = document.getElementById('root');
   const editorBoard: HTMLElement = document.createElement('div');
 
-  this.appRoot.innerHTML = '';
+  this.editorBoardGrid = document.createElement('div');
+  this.editorPanel = document.createElement('div');
+
+  this.panelObjects = {
+    ball: document.createElement('div'),
+    exit: document.createElement('div'),
+    wall: document.createElement('div'),
+    stone: document.createElement('div'),
+    stoneUp: document.createElement('div'),
+    stoneRight: document.createElement('div'),
+    stoneDown: document.createElement('div'),
+    stoneLeft: document.createElement('div'),
+    eraser: document.createElement('div'),
+  };
+
+  this.panelActions = {
+    reset: document.createElement('div'),
+    generate: document.createElement('div'),
+  };
+
+  appRoot.innerHTML = '';
 
   editorBoard.className = 'editorBoard';
   this.editorBoardGrid.className = '-grid';
   this.editorPanel.className = '-panel';
 
-  this.appRoot.appendChild(editorBoard);
+  appRoot.appendChild(editorBoard);
   editorBoard.appendChild(this.editorBoardGrid);
   editorBoard.appendChild(this.editorPanel);
 
