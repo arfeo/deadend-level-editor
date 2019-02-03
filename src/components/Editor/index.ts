@@ -5,21 +5,8 @@ import { setUpEventHandlers, removeEventHandlers } from './events';
 class Editor {
   editorBoardGrid: HTMLElement;
   editorPanel: HTMLElement;
-  panelObjects: {
-    ball: HTMLElement;
-    exit: HTMLElement;
-    wall: HTMLElement;
-    stone: HTMLElement;
-    stoneUp: HTMLElement;
-    stoneRight: HTMLElement;
-    stoneDown: HTMLElement;
-    stoneLeft: HTMLElement;
-    eraser: HTMLElement;
-  };
-  panelActions: {
-    reset: HTMLElement;
-    generate: HTMLElement;
-  };
+  panelObjects: { [key: string]: HTMLElement };
+  panelActions: { [key: string]: HTMLElement };
   cellSize: number;
   selectedObject: number;
   currentMap: number[][];
