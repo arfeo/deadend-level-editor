@@ -1,3 +1,5 @@
+import { CELL_SIZE_VMIN } from '../../constants/app';
+
 import { setCellSize } from '../../utils/common';
 import { renderEditorBoard, renderPanel } from './render';
 import { setUpEventHandlers, removeEventHandlers } from './events';
@@ -15,7 +17,7 @@ class Editor {
 
   constructor() {
     this.selectedObject = -1;
-    this.cellSize = setCellSize();
+    this.cellSize = setCellSize(CELL_SIZE_VMIN);
     this.currentMap = [];
     this.currentBallPosition = [];
     this.currentExitPosition = [];
@@ -37,11 +39,7 @@ class Editor {
 
   resetMap() {
     for (let y = 0; y < 20; y += 1) {
-      this.currentMap[y] = [];
-
-      for (let x = 0; x < 32; x += 1) {
-        this.currentMap[y].push(0);
-      }
+      this.currentMap[y] = Array(32).fill(0);
     }
 
     this.currentBallPosition = [];

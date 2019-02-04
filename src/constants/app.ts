@@ -34,4 +34,6 @@ export enum StoneLabels {
   Eraser = '✕',
 }
 
+export const CELL_SIZE_VMIN = 4;
+
 export const STONE_LABEL_FONT = '2vmin Helvetica, Arial';
