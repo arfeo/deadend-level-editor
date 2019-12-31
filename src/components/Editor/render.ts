@@ -304,7 +304,7 @@ function renderStone(ctx: CanvasRenderingContext2D, direction?: string) {
     ctx.font = STONE_LABEL_FONT;
 
     ctx.fillText(
-      StoneLabels[direction.charAt(0).toUpperCase() + direction.substr(1) as any],
+      StoneLabels[direction.replace(/^\w/, (c: string) => c.toUpperCase()) as keyof typeof StoneLabels],
       this.cellSize / (direction === 'up' || direction === 'down' ? 2.5 : 3.5),
       this.cellSize / 1.5,
     );
