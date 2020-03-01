@@ -1,14 +1,9 @@
 import { Modal } from '../common/Modal';
-import { Editor } from '../Editor';
 
 class GeneratedMap extends Modal {
   mapTextArea: HTMLTextAreaElement;
 
-  constructor(editor: Editor) {
-    super(editor);
-  }
-
-  render() {
+  render(): void {
     const generatedMapContainer: HTMLElement = document.createElement('div');
     const paragraph: HTMLParagraphElement = document.createElement('p');
     const copyToClipboardButton: HTMLButtonElement = document.createElement('button');

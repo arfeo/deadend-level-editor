@@ -4,7 +4,7 @@ import { GameColors, StoneLabels, STONE_LABEL_FONT } from '../../constants/app';
 /**
  * Render the Editor board: grid, canvas, tools panel
  */
-function renderEditorBoard() {
+function renderEditorBoard(): void {
   const appRoot: HTMLElement = document.getElementById('root');
   const editorBoard: HTMLElement = document.createElement('div');
 
@@ -60,7 +60,7 @@ function renderEditorBoard() {
 /**
  * Render tools panel
  */
-function renderPanel() {
+function renderPanel(): void {
   const panelObjects: HTMLElement = document.createElement('div');
   const panelObjectBallCanvas: HTMLCanvasElement = document.createElement('canvas');
   const panelObjectExitCanvas: HTMLCanvasElement = document.createElement('canvas');
@@ -168,7 +168,7 @@ function renderPanel() {
  *
  * @param ctx
  */
-function renderBall(ctx: CanvasRenderingContext2D) {
+function renderBall(ctx: CanvasRenderingContext2D): void {
   const grdX: number = this.cellSize / 2;
   const grdY: number = this.cellSize / 2;
   const innerRadius: number = this.cellSize / 6;
@@ -207,7 +207,7 @@ function renderBall(ctx: CanvasRenderingContext2D) {
  *
  * @param ctx
  */
-function renderExit(ctx: CanvasRenderingContext2D) {
+function renderExit(ctx: CanvasRenderingContext2D): void {
   const grdX: number = this.cellSize / 2;
   const grdY: number = this.cellSize / 2;
   const innerRadius: number = this.cellSize / 8;
@@ -245,7 +245,7 @@ function renderExit(ctx: CanvasRenderingContext2D) {
  *
  * @param ctx
  */
-function renderWall(ctx: CanvasRenderingContext2D) {
+function renderWall(ctx: CanvasRenderingContext2D): void {
   clearCell.call(this, ctx);
 
   ctx.fillStyle = GameColors.Wall;
@@ -289,7 +289,7 @@ function renderWall(ctx: CanvasRenderingContext2D) {
  * @param ctx
  * @param direction
  */
-function renderStone(ctx: CanvasRenderingContext2D, direction?: string) {
+function renderStone(ctx: CanvasRenderingContext2D, direction?: string): void {
   clearCell.call(this, ctx);
 
   ctx.fillStyle = GameColors.Stone;
@@ -318,7 +318,7 @@ function renderStone(ctx: CanvasRenderingContext2D, direction?: string) {
  *
  * @param ctx
  */
-function renderEraser(ctx: CanvasRenderingContext2D) {
+function renderEraser(ctx: CanvasRenderingContext2D): void {
   ctx.fillStyle = GameColors.Eraser;
   ctx.font = STONE_LABEL_FONT;
 
@@ -334,7 +334,7 @@ function renderEraser(ctx: CanvasRenderingContext2D) {
  *
  * @param ctx
  */
-function clearCell(ctx: CanvasRenderingContext2D) {
+function clearCell(ctx: CanvasRenderingContext2D): void {
   ctx.clearRect(
     0,
     0,

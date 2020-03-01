@@ -26,18 +26,18 @@ class Editor {
     this.render();
   }
 
-  render() {
+  render(): void {
     renderEditorBoard.call(this);
     renderPanel.call(this);
 
     setUpEventHandlers.call(this);
   }
 
-  destroy() {
+  destroy(): void {
     removeEventHandlers.call(this);
   }
 
-  resetMap() {
+  resetMap(): void {
     for (let y = 0; y < 20; y += 1) {
       this.currentMap[y] = Array(32).fill(0);
     }
