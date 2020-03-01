@@ -16,13 +16,13 @@ function setUpEventHandlers() {
   };
 
   for (const key in this.panelObjects) {
-    if (this.panelObjects.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(this.panelObjects, key)) {
       this.panelObjects[key].addEventListener('click', APP.eventListeners.onPanelObjectClick);
     }
   }
 
   for (const key in this.panelActions) {
-    if (this.panelActions.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(this.panelActions, key)) {
       this.panelActions[key].addEventListener('click', APP.eventListeners.onPanelActionClick);
     }
   }
@@ -32,7 +32,7 @@ function setUpEventHandlers() {
   ) as NodeListOf<HTMLCanvasElement>;
 
   for (const key in cells) {
-    if (cells.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(cells, key)) {
       cells[key].addEventListener('click', APP.eventListeners.onGridCellClick);
     }
   }
@@ -43,13 +43,13 @@ function setUpEventHandlers() {
  */
 function removeEventHandlers() {
   for (const key in this.panelObjects) {
-    if (this.panelObjects.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(this.panelObjects, key)) {
       this.panelObjects[key].removeEventListener('click', APP.eventListeners.onPanelObjectClick);
     }
   }
 
   for (const key in this.panelActions) {
-    if (this.panelActions.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(this.panelActions, key)) {
       this.panelActions[key].removeEventListener('click', APP.eventListeners.onPanelActionClick);
     }
   }
@@ -59,7 +59,7 @@ function removeEventHandlers() {
   ) as NodeListOf<HTMLCanvasElement>;
 
   for (const key in cells) {
-    if (cells.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(cells, key)) {
       cells[key].removeEventListener('click', APP.eventListeners.onGridCellClick);
     }
   }
@@ -74,14 +74,14 @@ function panelObjectClickHandler(event: MouseEvent) {
   const currentObject: HTMLElement = event.currentTarget as HTMLElement;
 
   for (const key in this.panelObjects) {
-    if (this.panelObjects.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(this.panelObjects, key)) {
       this.panelObjects[key].classList.remove('active');
     }
   }
 
   currentObject.classList.add('active');
 
-  this.selectedObject = parseInt(currentObject.getAttribute('key'));
+  this.selectedObject = parseInt(currentObject.getAttribute('key'), 10);
 }
 
 /**
@@ -103,7 +103,7 @@ function panelActionClickHandler(event: MouseEvent) {
         ) as NodeListOf<HTMLCanvasElement>;
 
         for (const key in cells) {
-          if (cells.hasOwnProperty(key)) {
+          if (Object.prototype.hasOwnProperty.call(cells, key)) {
             clearCell.call(this, cells[key].getContext('2d'));
           }
         }
@@ -138,8 +138,8 @@ function gridCellClickHandler(event: MouseEvent) {
 
   const currentCanvas: HTMLCanvasElement = event.target as HTMLCanvasElement;
   const ctx: CanvasRenderingContext2D = currentCanvas.getContext('2d');
-  const cellX: number = parseInt(currentCanvas.getAttribute('x'));
-  const cellY: number = parseInt(currentCanvas.getAttribute('y'));
+  const cellX: number = parseInt(currentCanvas.getAttribute('x'), 10);
+  const cellY: number = parseInt(currentCanvas.getAttribute('y'), 10);
 
   if (this.currentMap[cellY][cellX] === 1) {
     this.currentBallPosition = [];

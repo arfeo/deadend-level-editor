@@ -11,8 +11,9 @@ class GeneratedMap extends Modal {
   render() {
     const generatedMapContainer: HTMLElement = document.createElement('div');
     const paragraph: HTMLParagraphElement = document.createElement('p');
-    this.mapTextArea = document.createElement('textarea');
     const copyToClipboardButton: HTMLButtonElement = document.createElement('button');
+
+    this.mapTextArea = document.createElement('textarea');
 
     generatedMapContainer.innerHTML = '<strong>Generated map</strong>';
     this.mapTextArea.innerHTML = JSON.stringify(this.editor.currentMap);
