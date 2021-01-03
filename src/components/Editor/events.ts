@@ -5,9 +5,6 @@ import { GeneratedMap } from '../GeneratedMap';
 
 import { renderBall, renderExit, renderStone, renderWall, clearCell } from './render';
 
-/**
- * Set up app event listeners
- */
 function setUpEventHandlers(): void {
   APP.eventListeners = {
     onGridCellClick: gridCellClickHandler.bind(this),
@@ -38,9 +35,6 @@ function setUpEventHandlers(): void {
   }
 }
 
-/**
- * Remove app event listeners
- */
 function removeEventHandlers(): void {
   for (const key in this.panelObjects) {
     if (Object.prototype.hasOwnProperty.call(this.panelObjects, key)) {
@@ -65,11 +59,6 @@ function removeEventHandlers(): void {
   }
 }
 
-/**
- * Panel objects click event handler
- *
- * @param event
- */
 function panelObjectClickHandler(event: MouseEvent): void {
   const currentObject: HTMLElement = event.currentTarget as HTMLElement;
 
@@ -84,11 +73,6 @@ function panelObjectClickHandler(event: MouseEvent): void {
   this.selectedObject = parseInt(currentObject.getAttribute('key'), 10);
 }
 
-/**
- * Panel action buttons click handler
- *
- * @param event
- */
 function panelActionClickHandler(event: MouseEvent): void {
   event.stopPropagation();
 
@@ -128,11 +112,6 @@ function panelActionClickHandler(event: MouseEvent): void {
   }
 }
 
-/**
- * Grid cell click handler
- *
- * @param event
- */
 function gridCellClickHandler(event: MouseEvent): void {
   event.stopPropagation();
 

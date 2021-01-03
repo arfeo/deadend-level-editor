@@ -1,9 +1,5 @@
-// tslint:disable:max-file-line-count
 import { GameColors, StoneLabels, STONE_LABEL_FONT } from '../../constants/app';
 
-/**
- * Render the Editor board: grid, canvas, tools panel
- */
 function renderEditorBoard(): void {
   const appRoot: HTMLElement = document.getElementById('root');
   const editorBoard: HTMLElement = document.createElement('div');
@@ -57,9 +53,6 @@ function renderEditorBoard(): void {
   }
 }
 
-/**
- * Render tools panel
- */
 function renderPanel(): void {
   const panelObjects: HTMLElement = document.createElement('div');
   const panelObjectBallCanvas: HTMLCanvasElement = document.createElement('canvas');
@@ -163,11 +156,6 @@ function renderPanel(): void {
   renderEraser.call(this, panelObjectEraserCanvas.getContext('2d'));
 }
 
-/**
- * Render the Ball
- *
- * @param ctx
- */
 function renderBall(ctx: CanvasRenderingContext2D): void {
   const grdX: number = this.cellSize / 2;
   const grdY: number = this.cellSize / 2;
@@ -202,11 +190,6 @@ function renderBall(ctx: CanvasRenderingContext2D): void {
   ctx.fill();
 }
 
-/**
- * Render exit
- *
- * @param ctx
- */
 function renderExit(ctx: CanvasRenderingContext2D): void {
   const grdX: number = this.cellSize / 2;
   const grdY: number = this.cellSize / 2;
@@ -240,11 +223,6 @@ function renderExit(ctx: CanvasRenderingContext2D): void {
   ctx.fill();
 }
 
-/**
- * Render wall
- *
- * @param ctx
- */
 function renderWall(ctx: CanvasRenderingContext2D): void {
   clearCell.call(this, ctx);
 
@@ -283,12 +261,6 @@ function renderWall(ctx: CanvasRenderingContext2D): void {
   }
 }
 
-/**
- * Render stone
- *
- * @param ctx
- * @param direction
- */
 function renderStone(ctx: CanvasRenderingContext2D, direction?: string): void {
   clearCell.call(this, ctx);
 
@@ -313,11 +285,6 @@ function renderStone(ctx: CanvasRenderingContext2D, direction?: string): void {
   }
 }
 
-/**
- * Render eraser tool icon
- *
- * @param ctx
- */
 function renderEraser(ctx: CanvasRenderingContext2D): void {
   ctx.fillStyle = GameColors.Eraser;
   ctx.font = STONE_LABEL_FONT;
@@ -329,11 +296,6 @@ function renderEraser(ctx: CanvasRenderingContext2D): void {
   );
 }
 
-/**
- * Clear cell canvas completely
- *
- * @param ctx
- */
 function clearCell(ctx: CanvasRenderingContext2D): void {
   ctx.clearRect(
     0,
